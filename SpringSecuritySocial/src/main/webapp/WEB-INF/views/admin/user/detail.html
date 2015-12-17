@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>User</title>
+	<link rel="stylesheet" type="text/css" href="/resources/admin/css/bootstrap.min.css" />
+	<script src="/resources/admin/js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1 th:text="'Hello '+${user.firstName}+' '+${user.lastName}+', Welcome!'">Hello Name, Welcome !</h1>
+	</div>
+</body>
+</html>

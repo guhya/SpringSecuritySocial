@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Connect</title>
+	<link rel="stylesheet" type="text/css" href="/resources/admin/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/admin/css/font-awesome.min.css" />
+	<script src="/resources/admin/js/jquery-1.11.0.min.js"></script>
+	<script src="/resources/admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>Connect</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="connect">
+				<h3>Social</h3>
+				<div class="pic">
+					<img src="#" th:src="${profile.profileImageUrl}" alt="profile image"/>
+					<span th:text="${profile.name}">John Smith</span>
+				</div>
+				<div class="detail">
+					<dl>
+						<dt>ID:</dt>
+						<dd th:text="${profile.id}">12345678</dd>
+						<dt>Name:</dt>
+						<dd th:text="${profile.name}">John Smith</dd>
+						<dt>Screen Name :</dt>
+						<dd th:text="${profile.screenName}">@screenname</dd>
+						<dt>Profile Url:</dt>
+						<dd><a href="#" th:href="${profile.url}" th:text="${profile.url}">http://profile-url</a></dd>
+					</dl>
+				</div>
+				
+				<form id="disconnect" action="/connect/twitter" method="post">
+					<button type="submit">Disconnect from Twitter</button>	
+					<input type="hidden" name="_method" value="delete" />
+				</form>
+				<hr/>
+				<p>
+				<a href="/admin/logout" class="btn btn-lrg btn-danger">Logout</a>
+				</p>				
+			</div>			
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

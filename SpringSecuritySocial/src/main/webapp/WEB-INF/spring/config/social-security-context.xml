@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource" />
+
+	<!-- <bean id="socialAuthenticationServiceRegistry" class="org.springframework.social.security.SocialAuthenticationServiceRegistry" /> -->
+
+	<bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter"
+		c:_0-ref="authenticationManager"
+		c:_1-ref="userIdSource"
+		c:_2-ref="usersConnectionRepository"
+		c:_3-ref="connectionFactoryLocator"
+		p:signupUrl="/admin/register"
+		p:rememberMeServices-ref="rm" /> 
+
+	<bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider"
+		c:_0-ref="usersConnectionRepository"
+		c:_1-ref="socialUsersDetailServiceImplementation" />
+		
+	<bean id="socialUsersDetailServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.SocialUserDetailsServiceImpl"
+		c:_-ref="userDetailsServiceImplementation" />
+	
+</beans>

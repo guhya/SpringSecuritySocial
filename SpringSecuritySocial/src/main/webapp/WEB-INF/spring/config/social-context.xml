@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:facebook="http://www.springframework.org/schema/social/facebook"
+	xmlns:twitter="http://www.springframework.org/schema/social/twitter"
+	xmlns:social="http://www.springframework.org/schema/social"
+	xmlns:linkedin="http://www.springframework.org/schema/social/linkedin"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/social/facebook http://www.springframework.org/schema/social/spring-social-facebook.xsd
+		http://www.springframework.org/schema/social/linkedin http://www.springframework.org/schema/social/spring-social-linkedin.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/social/twitter http://www.springframework.org/schema/social/spring-social-twitter.xsd
+		http://www.springframework.org/schema/social http://www.springframework.org/schema/social/spring-social.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!--
+	<facebook:config app-id="${facebook.app.id}" app-secret="${facebook.app.secret}" app-namespace="springsocial" />
+	<social:jdbc-connection-repository/> 
+	<twitter:config app-id="${twitter.consumerKey}" app-secret="${twitter.consumerSecret}"/>
+	<linkedin:config app-id="${linkedin.consumerKey}" app-secret="${linkedin.consumerSecret}"/>
+	 -->
+	<!--  
+	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+		<property name="connectionFactories">
+			<list>
+				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+					<constructor-arg value="${facebook.app.id}" />
+					<constructor-arg value="${facebook.app.secret}" />				
+				</bean>
+				<bean class="org.springframework.social.twitter.connect.TwitterConnectionFactory">
+					<constructor-arg value="${twitter.consumer.key}" />
+					<constructor-arg value="${twitter.consumer.secret}" />				
+				</bean>
+			</list>
+		</property>
+	</bean>
+	 -->
+	<bean id="connectionFactoryLocator" class="org.springframework.social.security.SocialAuthenticationServiceRegistry">
+	    <property name="authenticationServices">
+	        <list>
+	            <bean class="org.springframework.social.facebook.security.FacebookAuthenticationService">
+					<constructor-arg value="${facebook.app.id}" />
+					<constructor-arg value="${facebook.app.secret}" />
+					<property name="defaultScope" value="email"></property>	
+	            </bean>
+	            <bean class="org.springframework.social.twitter.security.TwitterAuthenticationService">
+					<constructor-arg value="${twitter.consumer.key}" />
+					<constructor-arg value="${twitter.consumer.secret}" />	
+	            </bean>
+	        </list>
+	    </property>
+	</bean>
+	
+	<bean id="usersConnectionRepository" class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+	    <constructor-arg ref="dataSource" />
+	    <constructor-arg ref="connectionFactoryLocator" />
+	    <constructor-arg ref="textEncryptor" />
+	</bean>
+	
+	<bean id="connectionRepository" factory-method="createConnectionRepository" factory-bean="usersConnectionRepository" scope="request">
+	    <constructor-arg value="#{request.userPrincipal.name}" />
+	    <aop:scoped-proxy proxy-target-class="false"/>
+	</bean>
+
+ 	<bean class="org.springframework.social.connect.web.ConnectController" p:applicationUrl="${application.url}"/>
+	 
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
+	
+	<!-- 
+	<bean id="psc" class="org.springframework.social.connect.web.ProviderSignInController" p:applicationUrl="${application.url}" />		
+	 -->
+	 
+	<bean id="signInAdapter" class="com.ewideplus.companyprofile.admin.misc.SimpleSignInAdapter" autowire="constructor" />
+	
+	<bean id="disconnectController" class="org.springframework.social.facebook.web.DisconnectController" 
+		c:_0-ref="usersConnectionRepository" c:_1="${facebook.app.secret}" />
+	  
+</beans>

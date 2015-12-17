@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Connect</title>
+	<link rel="stylesheet" type="text/css" href="/resources/admin/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/admin/css/font-awesome.min.css" />
+	<script src="/resources/admin/js/jquery-1.11.0.min.js"></script>
+	<script src="/resources/admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>Connect</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="connect">
+				<h3>Your Social Media Profile</h3>
+				<div class="connect">
+					<h3>Success! You have connected to Twitter !</h3>
+					<p>
+						<span>Spring Social Twitter</span>
+						<span> is connected to your twitter account.
+						Click the button if you wish to see your profile.</span>
+					</p>
+					
+					<form id="disconnect" action="/admin/twitter/profile" method="get">
+						<button type="submit">View Profile</button>	
+					</form>
+				</div>
+			</div>			
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

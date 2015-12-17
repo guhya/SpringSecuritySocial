@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+
+    <select id="list" 	parameterType="com.ewideplus.companyprofile.vo.UserVo">
+        SELECT
+    		seq
+    		, username 
+    		, password 
+    		, firstName 
+    		, lastName 
+    		, enabled 
+    		, regId
+    		, regIp 
+    		, regDate
+    		, modId
+    		, modIp
+    		, modDate
+    		, delYn         
+		FROM tbUser;
+    </select>
+
+    <insert id="insert" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    	INSERT INTO tbUser(
+    		username 
+    		, password 
+    		, firstName 
+    		, lastName 
+    		, enabled 
+    		, regId
+    		, regIp 
+    		, regDate
+    		, modId
+    		, modIp
+    		, modDate
+    		, delYn
+    	)
+    	VALUE(
+    		#{username}
+    		, #{password}
+    		, #{firstName}
+    		, #{lastName}
+    		, 'N'
+    		, #{regId}
+    		, #{regIp}
+    		, #{regDate}
+    		, #{modId}
+    		, #{modIp}
+    		, #{modDate}
+    		, 'N'
+    	)    	
+    </insert>
+    
+    <select id="select"	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="hashmap">
+    	SELECT 
+    		seq
+    		, username 
+    		, password 
+    		, firstName 
+    		, lastName 
+    		, enabled 
+    		, regId
+    		, regIp 
+    		, regDate
+    		, modId
+    		, modIp
+    		, modDate
+    		, delYn
+    	FROM tbUser
+    	WHERE delYn = 'N'
+    		AND username = #{username}  		         
+    </select>
+
+    <insert id="insertRole" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    	INSERT INTO tbUserRole(
+    		username 
+    		, role
+    		, regId
+    		, regIp 
+    		, regDate
+    		, modId
+    		, modIp
+    		, modDate
+    		, delYn
+    	)
+    	VALUE(
+    		#{username}
+    		, #{role}
+    		, #{regId}
+    		, #{regIp}
+    		, #{regDate}
+    		, #{modId}
+    		, #{modIp}
+    		, #{modDate}
+    		, 'N'
+    	)    	
+    </insert>
+
+    <select id="listUserRoles"	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="string">
+    	SELECT 
+    		role 
+    	FROM tbUserRole
+    	WHERE delYn = 'N'
+    		AND username = #{username}  		         
+    </select>
+    
+    <update id="update" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    </update>
+
+    <delete id="delete" parameterType="com.ewideplus.companyprofile.vo.UserVo">    	
+    </delete>
+    
+</mapper>
