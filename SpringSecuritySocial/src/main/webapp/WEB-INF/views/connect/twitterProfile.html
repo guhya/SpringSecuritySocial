@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Connect</title>
+	<title th:text="${pageTitle}">Connect</title>
 	<link rel="stylesheet" type="text/css" href="/resources/admin/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="/resources/admin/css/font-awesome.min.css" />
 	<script src="/resources/admin/js/jquery-1.11.0.min.js"></script>
@@ -31,7 +31,9 @@
 						<dd th:text="${profile.name}">John Smith</dd>
 						<dt>Screen Name :</dt>
 						<dd th:text="${profile.screenName}">@screenname</dd>
-						<dt>Profile Url:</dt>
+						<dt>Twitter Url:</dt>
+						<dd><a href="#" th:href="'https://twitter.com/'+${profile.screenName}" th:text="'https://twitter.com/'+${profile.screenName}">http://twitter.com</a></dd>
+						<dt>Website Url:</dt>
 						<dd><a href="#" th:href="${profile.url}" th:text="${profile.url}">http://profile-url</a></dd>
 					</dl>
 				</div>
@@ -40,6 +42,7 @@
 					<button type="submit">Disconnect from Twitter</button>	
 					<input type="hidden" name="_method" value="delete" />
 				</form>
+				<p>You will have to sign up once more if you are registered through twitter!</p>
 				<hr/>
 				<p>
 				<a href="/admin/logout" class="btn btn-lrg btn-danger">Logout</a>

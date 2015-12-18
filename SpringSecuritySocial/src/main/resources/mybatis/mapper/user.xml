@@ -4,7 +4,7 @@
 
 <mapper namespace="User">
 
-    <select id="list" 	parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    <select id="list" 	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="hashmap">
         SELECT
     		seq
     		, username 
@@ -18,7 +18,7 @@
     		, modId
     		, modIp
     		, modDate
-    		, delYn         
+    		, delYn
 		FROM tbUser;
     </select>
 
@@ -32,9 +32,6 @@
     		, regId
     		, regIp 
     		, regDate
-    		, modId
-    		, modIp
-    		, modDate
     		, delYn
     	)
     	VALUE(
@@ -45,13 +42,21 @@
     		, 'N'
     		, #{regId}
     		, #{regIp}
-    		, #{regDate}
-    		, #{modId}
-    		, #{modIp}
-    		, #{modDate}
+    		, NOW()
     		, 'N'
     	)    	
     </insert>
+
+    <update id="update" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    	UPDATE tbUser SET 
+    		firstName = #{firstName}
+    		, lastName = #{lastName}
+    		, modId = #{modId}
+    		, modIp	= #{modIp}
+    		, modDate = NOW()
+    	WHERE username = #{username} 
+    		
+    </update>
     
     <select id="select"	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="hashmap">
     	SELECT 
@@ -80,9 +85,6 @@
     		, regId
     		, regIp 
     		, regDate
-    		, modId
-    		, modIp
-    		, modDate
     		, delYn
     	)
     	VALUE(
@@ -90,10 +92,7 @@
     		, #{role}
     		, #{regId}
     		, #{regIp}
-    		, #{regDate}
-    		, #{modId}
-    		, #{modIp}
-    		, #{modDate}
+    		, NOW()
     		, 'N'
     	)    	
     </insert>
@@ -105,9 +104,6 @@
     	WHERE delYn = 'N'
     		AND username = #{username}  		         
     </select>
-    
-    <update id="update" parameterType="com.ewideplus.companyprofile.vo.UserVo">
-    </update>
 
     <delete id="delete" parameterType="com.ewideplus.companyprofile.vo.UserVo">    	
     </delete>

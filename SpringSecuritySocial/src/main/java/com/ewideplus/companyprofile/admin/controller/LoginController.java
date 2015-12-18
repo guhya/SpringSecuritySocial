@@ -81,7 +81,7 @@ public class LoginController {
 		String providerId 			= "";
 		String role					= "";
 		
-		//If user is associated with the provider (Social User), prepare role
+		//If user is associated with the provider (Social User), prepare role 
 		if(connection != null){
 			providerId 	= connection.getKey().getProviderId();
 			role		= "ROLE_USER";
@@ -93,7 +93,7 @@ public class LoginController {
 		
 		if(success == 1 && !"".equals(providerId)){
 			
-			//Get role from database
+			//Get user role from database
 			List<String> userRoles = userService.listUserRoles(userVo);
 			String sRoles = StringUtils.join(userRoles, ",");
 			

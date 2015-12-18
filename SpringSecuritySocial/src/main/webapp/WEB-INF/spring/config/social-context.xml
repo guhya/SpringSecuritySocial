@@ -17,28 +17,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	
-	<!--
-	<facebook:config app-id="${facebook.app.id}" app-secret="${facebook.app.secret}" app-namespace="springsocial" />
-	<social:jdbc-connection-repository/> 
-	<twitter:config app-id="${twitter.consumerKey}" app-secret="${twitter.consumerSecret}"/>
-	<linkedin:config app-id="${linkedin.consumerKey}" app-secret="${linkedin.consumerSecret}"/>
-	 -->
-	<!--  
-	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
-		<property name="connectionFactories">
-			<list>
-				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
-					<constructor-arg value="${facebook.app.id}" />
-					<constructor-arg value="${facebook.app.secret}" />				
-				</bean>
-				<bean class="org.springframework.social.twitter.connect.TwitterConnectionFactory">
-					<constructor-arg value="${twitter.consumer.key}" />
-					<constructor-arg value="${twitter.consumer.secret}" />				
-				</bean>
-			</list>
-		</property>
-	</bean>
-	 -->
 	<bean id="connectionFactoryLocator" class="org.springframework.social.security.SocialAuthenticationServiceRegistry">
 	    <property name="authenticationServices">
 	        <list>

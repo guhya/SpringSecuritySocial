@@ -1,5 +1,7 @@
 package com.ewideplus.companyprofile.admin.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
@@ -14,11 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TwitterController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(TwitterController.class); 
+	
 	@Autowired
 	private ConnectionRepository connectionRepository;
 	
 	@RequestMapping(value="/admin/twitter/profile")
 	public String getProfile(Model model) {
+		
+		logger.info("Twitter profile");
+		
 		try {
 			Connection<Twitter> connection = connectionRepository.findPrimaryConnection(Twitter.class);
 			if (connection == null) {

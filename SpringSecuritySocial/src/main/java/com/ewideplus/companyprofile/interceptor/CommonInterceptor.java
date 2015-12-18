@@ -38,12 +38,14 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		logger.info(Arrays.deepToString(uris));
 		
 		if(!isResource){
-			logger.info("Executing interceptor : " + uri);
+			logger.info("Executing interceptor to set page title : " + uri);
 			
+			/*
 			userVo.setUsername("Avril");
 			@SuppressWarnings("rawtypes")
 			Map result = userService.select(userVo);
 			logger.info("Is Avril here ? " + result.get("lastName").toString());
+			*/
 			
 			request.setAttribute("pageTitle", "Spring Application");
 		}

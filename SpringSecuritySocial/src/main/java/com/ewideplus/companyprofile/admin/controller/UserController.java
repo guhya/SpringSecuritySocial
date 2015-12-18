@@ -2,6 +2,7 @@ package com.ewideplus.companyprofile.admin.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -21,12 +22,20 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
+	
+	@Autowired
+	private UserVo userVo;
 	
 	@RequestMapping(value = "/admin/user/list", method = RequestMethod.GET)
 	public String list(Model model) 
 	{
 		logger.info("List");
+		
+		@SuppressWarnings("rawtypes")
+		List<HashMap> userList = userService.list(userVo);
+		model.addAttribute("userList", userList);
+		
 		return "/admin/user/list";
 	}
 

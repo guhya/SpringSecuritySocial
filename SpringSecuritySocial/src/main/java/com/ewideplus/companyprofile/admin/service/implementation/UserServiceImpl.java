@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return userDao.insert(userVo);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@Override
-	public List<UserVo> list(UserVo userVo) {
-		return (List<UserVo>) userDao.select(userVo);
+	public List<HashMap> list(UserVo userVo) {
+		return userDao.list(userVo);
 	}
 
 	@SuppressWarnings("rawtypes")

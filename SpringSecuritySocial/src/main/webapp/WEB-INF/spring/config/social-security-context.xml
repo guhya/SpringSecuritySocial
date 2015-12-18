@@ -7,8 +7,6 @@
 
 	<bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource" />
 
-	<!-- <bean id="socialAuthenticationServiceRegistry" class="org.springframework.social.security.SocialAuthenticationServiceRegistry" /> -->
-
 	<bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter"
 		c:_0-ref="authenticationManager"
 		c:_1-ref="userIdSource"
