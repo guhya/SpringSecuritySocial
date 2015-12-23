@@ -18,8 +18,8 @@
 	<bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider"
 		c:_0-ref="usersConnectionRepository"
 		c:_1-ref="socialUsersDetailServiceImplementation" />
-		
-	<bean id="socialUsersDetailServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.SocialUserDetailsServiceImpl"
-		c:_-ref="userDetailsServiceImplementation" />
+	
+	<!-- Implementation detail for social authentication, including populating principal with user information -->	
+	<bean id="socialUsersDetailServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.SocialUserDetailsServiceImpl"/>
 	
 </beans>

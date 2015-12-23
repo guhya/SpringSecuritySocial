@@ -1,6 +1,5 @@
 package com.ewideplus.companyprofile.admin.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +20,11 @@ public class UserDAO{
 		return sqlSession.insert("User.insert", userVo);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List<HashMap> list(UserVo userVo){
+	public List<Map<String, String>> list(UserVo userVo){
 		return sqlSession.selectList("User.list", userVo);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Map select(UserVo userVo){
+	public Map<String, String> select(UserVo userVo){
 		return sqlSession.selectOne("User.select", userVo);
 	}
 	

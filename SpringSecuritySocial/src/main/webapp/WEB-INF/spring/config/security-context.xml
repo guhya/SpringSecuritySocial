@@ -9,12 +9,13 @@
            
 	<http use-expressions="true" disable-url-rewriting="true">
 		
-		<intercept-url pattern="/admin/login" 		access="permitAll"/>
-		<intercept-url pattern="/admin/register"	access="permitAll"/>
-		<intercept-url pattern="/auth/**" 			access="permitAll" />
-		<intercept-url pattern="/admin/facebook/**" access="hasRole('ROLE_USER')" requires-channel="any"/>
-		<intercept-url pattern="/admin/twitter/**" access="hasRole('ROLE_USER')" requires-channel="any"/>
-		<intercept-url pattern="/admin/**" 			access="hasRole('ROLE_ADMIN')" requires-channel="any"/>
+		<intercept-url pattern="/admin/login" 			access="permitAll"/>
+		<intercept-url pattern="/admin/register"		access="permitAll"/>
+		<intercept-url pattern="/auth/**" 				access="permitAll" />
+		<intercept-url pattern="/admin/facebook/**" 	access="hasRole('ROLE_USER')" requires-channel="any"/>
+		<intercept-url pattern="/admin/twitter/**" 		access="hasRole('ROLE_USER')" requires-channel="any"/>
+		<intercept-url pattern="/admin/user/mydetail" 	access="hasRole('ROLE_USER')" requires-channel="any"/>
+		<intercept-url pattern="/admin/**" 				access="hasRole('ROLE_ADMIN')" requires-channel="any"/>
 		
 		<form-login login-page="/admin/login" authentication-failure-url="/admin/login?error=1"/>
 		
@@ -74,7 +75,7 @@
 		<beans:property name="userDetailsService" ref="userDetailsServiceImplementation"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="userDetailsServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.UserServiceImpl" />
+	<beans:bean id="userDetailsServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.UserDetailsServiceImpl" />
 	
 	<!-- Persistent Remember Me Service -->
 	<beans:bean id="rememberMeAuthenticationProvider" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">

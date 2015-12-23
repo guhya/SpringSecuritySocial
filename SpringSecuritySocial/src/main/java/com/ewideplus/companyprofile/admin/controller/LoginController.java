@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.StringUtils;
 
 import com.ewideplus.companyprofile.admin.misc.SignInUtils;
+import com.ewideplus.companyprofile.admin.service.RoleService;
 import com.ewideplus.companyprofile.admin.service.UserService;
 import com.ewideplus.companyprofile.vo.RoleVo;
 import com.ewideplus.companyprofile.vo.UserVo;
@@ -32,6 +33,9 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RoleService roleService;
+
 	private Map<String, String> user = new HashMap<String, String>();
 	private ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
 
@@ -89,12 +93,12 @@ public class LoginController {
 		
 		//Save role for the new user
 		RoleVo roleVo = new RoleVo(userVo.getUsername(), role);
-		success		= userService.insertRole(roleVo);
+		success		= roleService.insertRole(roleVo);
 		
 		if(success == 1 && !"".equals(providerId)){
 			
 			//Get user role from database
-			List<String> userRoles = userService.listUserRoles(userVo);
+			List<String> userRoles = roleService.listUserRoles(userVo);
 			String sRoles = StringUtils.join(userRoles, ",");
 			
 			//Try to sign in using the newly created account

@@ -59,6 +59,7 @@
 	 
 	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
 	
+	<!-- It's needed for social login functionality -->
 	<bean id="signInAdapter" class="com.ewideplus.companyprofile.admin.misc.SimpleSignInAdapter" autowire="constructor" />
 	
 	<bean id="disconnectController" class="org.springframework.social.facebook.web.DisconnectController" 

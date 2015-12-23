@@ -1,25 +1,35 @@
 package com.ewideplus.companyprofile.admin.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 
+import com.ewideplus.companyprofile.admin.service.LoginService;
+import com.ewideplus.companyprofile.vo.SocialLoginVo;
+import com.ewideplus.companyprofile.vo.UserVo;
+
+/*
+ * This may seem redundant, need a service that populate login object with user information
+ * and also role information
+ */
 public class SocialUserDetailsServiceImpl implements SocialUserDetailsService {
-
-	private UserDetailsService userDetailsService;
-
-	public SocialUserDetailsServiceImpl(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
+	
+	@Autowired
+	private LoginService loginService;
+	
+	@Autowired
+	private UserVo userVo;
 
 	@Override
 	public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException, DataAccessException {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
-		return new SocialUser(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+		userVo.setUsername(userId);
+		
+		userVo = loginService.buildPrincipal(userId);
+		
+		return new SocialLoginVo(userVo.getUsername(), userVo.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(userVo.getRoleString()), userVo);
 	}
 
 	

@@ -31,27 +31,27 @@ import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.thymeleaf.util.StringUtils;
 
-import com.ewideplus.companyprofile.admin.service.UserService;
+import com.ewideplus.companyprofile.admin.service.RoleService;
 import com.ewideplus.companyprofile.vo.UserVo;
 
 public class SimpleSignInAdapter implements SignInAdapter {
 
 	private final RequestCache requestCache;
 	
-	private UserService userService;
+	private RoleService roleService;
 	private UserVo userVo;
 
 	@Inject
-	public SimpleSignInAdapter(RequestCache requestCache, UserVo userVo, UserService userService) {
+	public SimpleSignInAdapter(RequestCache requestCache, UserVo userVo, RoleService roleService) {
 		this.requestCache 	= requestCache;
 		this.userVo			= userVo;
-		this.userService	= userService;
+		this.roleService	= roleService;
 	}
 	
 	@Override
 	public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
 		userVo.setUsername(localUserId);
-		List<String> userRoles = userService.listUserRoles(userVo);
+		List<String> userRoles = roleService.listUserRoles(userVo);
 		String sRoles = StringUtils.join(userRoles, ",");
 
 		SignInUtils.signin(userVo.getUsername(), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles));

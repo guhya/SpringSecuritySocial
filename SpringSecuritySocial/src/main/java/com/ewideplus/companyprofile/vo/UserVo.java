@@ -11,6 +11,7 @@ public class UserVo extends CommonVo{
 	private String lastName;
 	private String enabled;
 	
+	private String roleString;
 	
 	public String getUsername() {
 		return username;
@@ -42,7 +43,12 @@ public class UserVo extends CommonVo{
 	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
-
+	public String getRoleString() {
+		return roleString;
+	}
+	public void setRoleString(String roleString) {
+		this.roleString = roleString;
+	}
 	
 	@Override
 	public String toString() {

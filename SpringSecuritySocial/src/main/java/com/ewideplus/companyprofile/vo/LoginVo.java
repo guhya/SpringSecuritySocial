@@ -10,8 +10,9 @@ public class LoginVo extends User {
 	
 	private UserVo userVo;
 
-	public LoginVo(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public LoginVo(String username, String password, Collection<? extends GrantedAuthority> authorities, UserVo userVo) {
 		super(username, password, authorities);
+		this.userVo = userVo;
 	}
 	
 	public UserVo getUserVo() {

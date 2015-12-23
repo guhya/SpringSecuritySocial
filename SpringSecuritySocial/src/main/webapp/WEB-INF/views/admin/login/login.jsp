@@ -15,7 +15,7 @@
 					<div class="form">
 					
 						<form action="/j_spring_security_check" class="form-horizontal" method="post">
-							<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+							<c:if test="${not empty error}">
 								<p class="alert alert-danger">${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
 							</c:if>
 							
@@ -80,7 +80,7 @@
     <tiles:putAttribute name="js">
     	<script>
     		$(document).ready(function(){    			
-    			
+    			$("#j_username").focus();
     		});
     	</script>
     </tiles:putAttribute>

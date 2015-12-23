@@ -1,7 +1,5 @@
 package com.ewideplus.companyprofile.admin.controller;
 
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ewideplus.companyprofile.admin.service.LoginService;
 import com.ewideplus.companyprofile.admin.service.UserService;
 import com.ewideplus.companyprofile.vo.UserVo;
 
@@ -25,6 +24,9 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
+	private LoginService loginService;
+	
+	@Autowired
 	private UserVo userVo;
 	
 	@RequestMapping(value = "/admin/user/list", method = RequestMethod.GET)
@@ -32,25 +34,32 @@ public class UserController {
 	{
 		logger.info("List");
 		
-		@SuppressWarnings("rawtypes")
-		List<HashMap> userList = userService.list(userVo);
+		List<Map<String, String>> userList = userService.list(userVo);
 		model.addAttribute("userList", userList);
 		
 		return "/admin/user/list";
 	}
 
 	@RequestMapping(value = "/admin/user/detail/{name}", method = RequestMethod.GET)
-	public String detail(@PathVariable String name, Model model, Principal principal ) 
+	public String detail(@PathVariable String name, Model model, UserVo userVo) 
 	{
 		logger.info("Detail");
 		
-		UserVo userVo = new UserVo();
 		userVo.setUsername(name);
-		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		Map result = new HashMap(userService.select(userVo));
+		Map<String, String> result = userService.select(userVo);
 		
 		model.addAttribute("user", result);
+		
+		return "/admin/user/detail";
+	}
+	
+	@RequestMapping(value = "/admin/user/mydetail", method = RequestMethod.GET)
+	public String myDetail(Model model, UserVo userVo) 
+	{
+		logger.info("My Detail");
+		
+		userVo = loginService.getLoggedInUser();
+		model.addAttribute("user", userVo);
 		
 		return "/admin/user/detail";
 	}
