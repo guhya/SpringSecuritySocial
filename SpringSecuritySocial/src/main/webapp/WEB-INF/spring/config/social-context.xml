@@ -7,7 +7,7 @@
 	xmlns:linkedin="http://www.springframework.org/schema/social/linkedin"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:c="http://www.springframework.org/schema/c"
-	xmlns:p="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/social/facebook http://www.springframework.org/schema/social/spring-social-facebook.xsd
 		http://www.springframework.org/schema/social/linkedin http://www.springframework.org/schema/social/spring-social-linkedin.xsd
@@ -44,14 +44,21 @@
 	    <aop:scoped-proxy proxy-target-class="false"/>
 	</bean>
 
- 	<bean class="org.springframework.social.connect.web.ConnectController" p:applicationUrl="${application.url}"/>
+ 	<bean id="connectController" class="org.springframework.social.connect.web.ConnectController" autowire="constructor">
+		<!-- 
+		<property name="connectInterceptors">
+			<list>
+				<bean class="org.springframework.social.showcase.facebook.PostToWallAfterConnectInterceptor" />
+				<bean class="org.springframework.social.showcase.twitter.TweetAfterConnectInterceptor" />
+			</list>
+		</property>
+		 -->
+	</bean>
+	
+	<bean id="psc" class="org.springframework.social.connect.web.ProviderSignInController" autowire="constructor" />		
 	 
 	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
 	
-	<!-- 
-	<bean id="psc" class="org.springframework.social.connect.web.ProviderSignInController" p:applicationUrl="${application.url}" />		
-	 -->
-	 
 	<bean id="signInAdapter" class="com.ewideplus.companyprofile.admin.misc.SimpleSignInAdapter" autowire="constructor" />
 	
 	<bean id="disconnectController" class="org.springframework.social.facebook.web.DisconnectController" 

@@ -18,15 +18,25 @@
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	
 	<!-- Plain JSP+JSTL -->
-	<!--  
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	-->
+	
+    <!-- Tiles configuration -->
+    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <beans:property name="definitions">
+            <beans:list>
+                <beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+	
 	
 	<!-- Thymeleaf -->
+	<!--  
 	<beans:bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+	    <beans:property name="cacheable" value="false" />	
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".html" />
 		<beans:property name="templateMode" value="HTML5" />
@@ -39,6 +49,7 @@
 	<beans:bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
 		<beans:property name="templateEngine" ref="templateEngine" />
 	</beans:bean> 	
+	-->
 	
 	<!-- Auto scan for classes -->
 	<context:component-scan base-package="com.ewideplus.companyprofile" />
