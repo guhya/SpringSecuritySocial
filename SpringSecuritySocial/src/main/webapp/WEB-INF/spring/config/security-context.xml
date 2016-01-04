@@ -59,7 +59,7 @@
 		
 	</authentication-manager>
 	
-	<!-- servlet.xml need to be iencluded in context before calling dataSource from here -->
+	<!-- servlet.xml need to be included in context before calling dataSource from here -->
 	<beans:bean id="jdbcAuthenticationProvider" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 		<beans:property 
@@ -72,8 +72,10 @@
 		</beans:property>		
 	</beans:bean>
 	
+	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="userDetailsServiceImplementation"></beans:property>
+		<beans:property name="passwordEncoder" ref="encoder"></beans:property>
 	</beans:bean>
 	
 	<beans:bean id="userDetailsServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.UserDetailsServiceImpl" />
