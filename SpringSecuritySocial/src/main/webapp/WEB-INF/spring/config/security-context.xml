@@ -17,7 +17,7 @@
 		<intercept-url pattern="/admin/user/mydetail" 	access="hasRole('ROLE_USER')" requires-channel="any"/>
 		<intercept-url pattern="/admin/**" 				access="hasRole('ROLE_ADMIN')" requires-channel="any"/>
 		
-		<form-login login-page="/admin/login" authentication-failure-url="/admin/login?error=1"/>
+		<form-login login-page="/admin/login" authentication-failure-url="/admin/login?error=1" authentication-success-handler-ref="authenticationSuccessHandler"/>
 		
 		<!-- Detect the submission of an invalid session ID, when timeout cookie need to be cleared explicitly -->
 		<session-management invalid-session-url="/">
@@ -38,6 +38,8 @@
 		
 	</http>
 	
+	<beans:bean id="authenticationSuccessHandler" class="com.ewideplus.companyprofile.admin.misc.LoginSuccessHandler" />
+	
 	<authentication-manager alias="authenticationManager">
 		
 		<!-- JDBC Provider 
@@ -54,7 +56,6 @@
 				<user name="${dev.user}" password="${dev.password}" authorities="ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>		
-		
 		
 	</authentication-manager>
 	

@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -35,6 +37,8 @@ import com.ewideplus.companyprofile.admin.service.RoleService;
 import com.ewideplus.companyprofile.vo.UserVo;
 
 public class SimpleSignInAdapter implements SignInAdapter {
+	
+	private Logger logger = LoggerFactory.getLogger(SimpleSignInAdapter.class);
 
 	private final RequestCache requestCache;
 	
@@ -50,11 +54,14 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	
 	@Override
 	public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
+		
+		logger.info("Signin adapter fired !");
+		/*
 		userVo.setUsername(localUserId);
 		List<String> userRoles = roleService.listUserRoles(userVo);
 		String sRoles = StringUtils.join(userRoles, ",");
-
 		SignInUtils.signin(userVo.getUsername(), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles));
+		 */		
 		return extractOriginalUrl(request);
 	}
 

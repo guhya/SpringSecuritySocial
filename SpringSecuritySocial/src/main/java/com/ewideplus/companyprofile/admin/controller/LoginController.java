@@ -21,8 +21,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.StringUtils;
 
 import com.ewideplus.companyprofile.admin.misc.SignInUtils;
+import com.ewideplus.companyprofile.admin.service.LoginService;
 import com.ewideplus.companyprofile.admin.service.RoleService;
 import com.ewideplus.companyprofile.admin.service.UserService;
+import com.ewideplus.companyprofile.vo.LoginVo;
 import com.ewideplus.companyprofile.vo.RoleVo;
 import com.ewideplus.companyprofile.vo.UserVo;
 
@@ -35,6 +37,9 @@ public class LoginController {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private LoginService loginService;	
 
 	private Map<String, String> user = new HashMap<String, String>();
 	private ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
@@ -102,7 +107,8 @@ public class LoginController {
 			String sRoles = StringUtils.join(userRoles, ",");
 			
 			//Try to sign in using the newly created account
-			SignInUtils.signin(userVo.getUsername(), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles));
+			userVo = loginService.buildPrincipal(userVo.getUsername());
+			SignInUtils.signin(new LoginVo(userVo.getUsername(), userVo.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles), userVo), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles));
 			providerSignInUtils.doPostSignUp(userVo.getUsername(), request);
 			
 			return "redirect:/admin/"+providerId+"/profile";

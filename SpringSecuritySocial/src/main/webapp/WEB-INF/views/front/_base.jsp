@@ -25,8 +25,8 @@
 				
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">User</a></li>
+						<li><a href="/">Home</a></li>
+						<li><a href="/admin/user/mydetail">User Session</a></li>
 						<li><a href="#">Social Status</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

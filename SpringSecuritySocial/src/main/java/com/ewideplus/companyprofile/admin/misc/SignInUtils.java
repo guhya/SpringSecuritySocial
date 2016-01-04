@@ -17,17 +17,26 @@ package com.ewideplus.companyprofile.admin.misc;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.ewideplus.companyprofile.vo.LoginVo;
+
 public class SignInUtils {
+	
+	
+	private static Logger logger = LoggerFactory.getLogger(SignInUtils.class);
 	
 	/**
 	 * Programmatically signs in the user with the given the user ID.
 	 */
-	public static void signin(String userId, List<GrantedAuthority> roles) {		
-		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userId, null, roles));	
+	public static void signin(LoginVo loginVo, List<GrantedAuthority> roles) {
+		logger.info("Signin util fired!");
+		
+		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(loginVo, null, roles));	
 	}
 	
 }
