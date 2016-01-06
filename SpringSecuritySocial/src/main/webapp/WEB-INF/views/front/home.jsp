@@ -10,6 +10,8 @@
 		<a href="/admin/facebook/profile"><button class="btn btn-lrg btn-info">Facebook Profile</button></a>	
 		<a href="/admin/twitter/profile" class="btn btn-lrg"><button class="btn btn-lrg btn-success">Twitter Profile</button></a>	
 		<a href="/admin/login" class="btn btn-lrg"><button class="btn btn-lrg btn-warning">Normal Login</button></a>
+		<a href="/admin/register" class="btn btn-lrg"><button class="btn btn-lrg btn-default">Register</button></a>
+		
     </tiles:putAttribute>
     
     <tiles:putAttribute name="js">

@@ -7,6 +7,9 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
            
+           
+	<global-method-security pre-post-annotations="enabled" />
+	           
 	<http use-expressions="true" disable-url-rewriting="true">
 		
 		<intercept-url pattern="/admin/login" 			access="permitAll"/>
@@ -14,7 +17,7 @@
 		<intercept-url pattern="/auth/**" 				access="permitAll" />
 		<intercept-url pattern="/admin/facebook/**" 	access="hasRole('ROLE_USER')" requires-channel="any"/>
 		<intercept-url pattern="/admin/twitter/**" 		access="hasRole('ROLE_USER')" requires-channel="any"/>
-		<intercept-url pattern="/admin/user/mydetail" 	access="hasRole('ROLE_USER')" requires-channel="any"/>
+		<intercept-url pattern="/admin/user/**" 		access="hasRole('ROLE_USER')" requires-channel="any"/>
 		<intercept-url pattern="/admin/**" 				access="hasRole('ROLE_ADMIN')" requires-channel="any"/>
 		
 		<form-login login-page="/admin/login" authentication-failure-url="/admin/login?error=1" authentication-success-handler-ref="authenticationSuccessHandler"/>

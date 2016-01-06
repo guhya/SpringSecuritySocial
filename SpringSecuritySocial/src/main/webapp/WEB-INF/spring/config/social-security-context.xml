@@ -13,7 +13,8 @@
 		c:_2-ref="usersConnectionRepository"
 		c:_3-ref="connectionFactoryLocator"
 		p:signupUrl="/admin/register"
-		p:rememberMeServices-ref="rm" /> 
+		p:rememberMeServices-ref="rm" 
+		p:defaultFailureUrl="/admin/login"/> 
 
 	<bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider"
 		c:_0-ref="usersConnectionRepository"

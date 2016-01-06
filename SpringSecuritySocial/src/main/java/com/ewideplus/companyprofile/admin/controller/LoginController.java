@@ -1,5 +1,6 @@
 package com.ewideplus.companyprofile.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,30 +89,42 @@ public class LoginController {
 		
 		Connection<?> connection 	= providerSignInUtils.getConnectionFromSession(request);
 		String providerId 			= "";
-		String role					= "";
+		List<String> roles			= new ArrayList<String>();
 		
 		//If user is associated with the provider (Social User), prepare role 
 		if(connection != null){
 			providerId 	= connection.getKey().getProviderId();
-			role		= "ROLE_USER";
+			roles.add("ROLE_USER");
+		}else{
+			roles.add("ROLE_ADMIN");
+			roles.add("ROLE_USER");
 		}
 		
 		//Save role for the new user
-		RoleVo roleVo = new RoleVo(userVo.getUsername(), role);
-		success		= roleService.insertRole(roleVo);
+		for(String role : roles){
+			RoleVo roleVo = new RoleVo(userVo.getUsername(), role);
+			success		= roleService.insertRole(roleVo);
+		}
 		
-		if(success == 1 && !"".equals(providerId)){
+		if(success == 1){
 			
-			//Get user role from database
-			List<String> userRoles = roleService.listUserRoles(userVo);
-			String sRoles = StringUtils.join(userRoles, ",");
+			//If registered through facebook/twitter
+			if(!"".equals(providerId)){
+				
+				//Get user role from database
+				List<String> userRoles = roleService.listUserRoles(userVo);
+				String sRoles = StringUtils.join(userRoles, ",");
+				
+				//Try to sign in using the newly created account
+				userVo = loginService.buildPrincipal(userVo.getUsername());
+				SignInUtils.signin(new LoginVo(userVo.getUsername(), userVo.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles), userVo), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles));
+				providerSignInUtils.doPostSignUp(userVo.getUsername(), request);
 			
-			//Try to sign in using the newly created account
-			userVo = loginService.buildPrincipal(userVo.getUsername());
-			SignInUtils.signin(new LoginVo(userVo.getUsername(), userVo.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles), userVo), AuthorityUtils.commaSeparatedStringToAuthorityList(sRoles));
-			providerSignInUtils.doPostSignUp(userVo.getUsername(), request);
-			
-			return "redirect:/admin/"+providerId+"/profile";
+				return "redirect:/admin/"+providerId+"/profile";
+			}else{
+				//Normal registration
+				return "redirect:/admin/user/mydetail";
+			}
 		}
 		
 		model.addAttribute("user", userVo);
