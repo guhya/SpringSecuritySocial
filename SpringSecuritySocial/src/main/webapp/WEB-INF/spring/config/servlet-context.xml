@@ -72,13 +72,34 @@
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
+	
+	<!-- Internationalization -->
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename" value="classpath:messages/messages" />
+		<beans:property name="defaultEncoding" value="UTF-8"/>
+	</beans:bean>	
+	
+	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	    <beans:property name="cookieName" value="preferredLanguage"/>
+	    <beans:property name="defaultLocale" value="en" /> 
+	    <beans:property name="cookieMaxAge" value="604800"/>        
+	</beans:bean>
     
+    <!-- Interceptors, locale, maintenance -->
     <interceptors>
     	<interceptor>
     		<!-- [No exclude mapping in spring 3.1 ]It will scan all incoming requests, including web resources, so make sure to exclude them in the implementation -->
     		<mapping path="/**"/>
     		<beans:bean id="commonInterceptor" class="com.ewideplus.companyprofile.interceptor.CommonInterceptor"></beans:bean>
     	</interceptor>
+    	
+    	<interceptor>
+    		<mapping path="/**"/>
+			<beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<beans:property name="paramName" value="lang"/>
+			</beans:bean>
+    	</interceptor>
+    	
     </interceptors>
     
 </beans:beans>
