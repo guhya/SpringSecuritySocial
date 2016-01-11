@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.StringUtils;
 
 import com.ewideplus.companyprofile.admin.misc.SignInUtils;
+import com.ewideplus.companyprofile.admin.service.CommonService;
 import com.ewideplus.companyprofile.admin.service.LoginService;
 import com.ewideplus.companyprofile.admin.service.RoleService;
 import com.ewideplus.companyprofile.admin.service.UserService;
@@ -41,6 +45,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;	
+	
+	@Autowired
+	private CommonService commonService;	
 
 	private Map<String, String> user = new HashMap<String, String>();
 	private ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
@@ -80,9 +87,17 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/admin/register", method=RequestMethod.POST)
-	public String formProcessor(Model model, WebRequest request, @ModelAttribute("userVo") UserVo userVo) 
+	public String formProcessor(Model model, WebRequest request, HttpServletRequest httpRequest, @ModelAttribute("userVo") UserVo userVo) 
 	{
 		logger.info("Form Processor");
+		
+		String recaptcha = httpRequest.getParameter("g-recaptcha-response");		
+		boolean captchaPassed = commonService.verifyCaptcha(recaptcha, httpRequest.getRemoteAddr());
+		
+		if(!captchaPassed){
+			model.addAttribute("user", userVo);
+			return "/admin/login/register";
+		}
 		
 		//Create new user
 		int success = userService.insert(userVo);
