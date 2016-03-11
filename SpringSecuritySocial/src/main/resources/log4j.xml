@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.ewideplus.companyprofile">
+	<logger name="com.project.companyprofile">
 		<level value="info" />
 	</logger>
 	
@@ -48,7 +48,7 @@
     	<level value="debug"/>
     </logger>
     
-    <logger name="com.ewideplus.com.companyprofile">
+    <logger name="com.project.com.companyprofile">
     	<level value="debug"/>
     </logger>	
 

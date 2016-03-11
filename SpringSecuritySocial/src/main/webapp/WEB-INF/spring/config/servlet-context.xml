@@ -52,7 +52,7 @@
 	-->
 	
 	<!-- Auto scan for classes -->
-	<context:component-scan base-package="com.ewideplus.companyprofile" />
+	<context:component-scan base-package="com.project.companyprofile" />
 	
 	<!-- JNDI Datasource, configured in Tomcat server.xml -->
 	<beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -90,7 +90,7 @@
     	<interceptor>
     		<!-- [No exclude mapping in spring 3.1 ]It will scan all incoming requests, including web resources, so make sure to exclude them in the implementation -->
     		<mapping path="/**"/>
-    		<beans:bean id="commonInterceptor" class="com.ewideplus.companyprofile.interceptor.CommonInterceptor"></beans:bean>
+    		<beans:bean id="commonInterceptor" class="com.project.companyprofile.interceptor.CommonInterceptor"></beans:bean>
     	</interceptor>
     	
     	<interceptor>

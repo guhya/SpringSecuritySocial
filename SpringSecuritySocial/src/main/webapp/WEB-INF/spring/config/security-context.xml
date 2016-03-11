@@ -29,7 +29,7 @@
 		</session-management>
 		
 		<!-- Cookie Only 
-		<remember-me key="ewideplus.companyprofile" user-service-ref="userDetailsServiceImplementation" />
+		<remember-me key="project.companyprofile" user-service-ref="userDetailsServiceImplementation" />
 		-->				
 		<remember-me data-source-ref="dataSource" user-service-ref="userDetailsServiceImplementation" services-alias="rm" />				
 		
@@ -41,7 +41,7 @@
 		
 	</http>
 	
-	<beans:bean id="authenticationSuccessHandler" class="com.ewideplus.companyprofile.admin.misc.LoginSuccessHandler" />
+	<beans:bean id="authenticationSuccessHandler" class="com.project.companyprofile.admin.misc.LoginSuccessHandler" />
 	
 	<authentication-manager alias="authenticationManager">
 		
@@ -81,11 +81,11 @@
 		<beans:property name="passwordEncoder" ref="encoder"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="userDetailsServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.UserDetailsServiceImpl" />
+	<beans:bean id="userDetailsServiceImplementation" class="com.project.companyprofile.admin.service.implementation.UserDetailsServiceImpl" />
 	
 	<!-- Persistent Remember Me Service -->
 	<beans:bean id="rememberMeAuthenticationProvider" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
-	    <beans:property name="key" value="ewideplus.companyprofile" />
+	    <beans:property name="key" value="project.companyprofile" />
 	    <beans:property name="tokenRepository" ref="jdbcTokenRepository" />
 	    <beans:property name="userDetailsService" ref="userDetailsServiceImplementation" />
 	</beans:bean>

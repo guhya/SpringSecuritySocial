@@ -4,7 +4,7 @@
 
 <mapper namespace="User">
 
-    <select id="list" 	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="hashmap">
+    <select id="list" 	parameterType="com.project.companyprofile.vo.UserVo" resultType="hashmap">
         SELECT
     		seq
     		, username 
@@ -22,7 +22,7 @@
 		FROM tbUser;
     </select>
 
-    <insert id="insert" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    <insert id="insert" parameterType="com.project.companyprofile.vo.UserVo">
     	INSERT INTO tbUser(
     		username 
     		, password 
@@ -47,7 +47,7 @@
     	)    	
     </insert>
 
-    <update id="update" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    <update id="update" parameterType="com.project.companyprofile.vo.UserVo">
     	UPDATE tbUser SET 
     		firstName = #{firstName}
     		, lastName = #{lastName}
@@ -58,7 +58,7 @@
     		
     </update>
     
-    <select id="select"	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="hashmap">
+    <select id="select"	parameterType="com.project.companyprofile.vo.UserVo" resultType="hashmap">
     	SELECT 
     		seq
     		, username 
@@ -78,7 +78,7 @@
     		AND username = #{username}  		         
     </select>
 
-    <insert id="insertRole" parameterType="com.ewideplus.companyprofile.vo.UserVo">
+    <insert id="insertRole" parameterType="com.project.companyprofile.vo.UserVo">
     	INSERT INTO tbUserRole(
     		username 
     		, role
@@ -97,7 +97,7 @@
     	)    	
     </insert>
 
-    <select id="listUserRoles"	parameterType="com.ewideplus.companyprofile.vo.UserVo" resultType="string">
+    <select id="listUserRoles"	parameterType="com.project.companyprofile.vo.UserVo" resultType="string">
     	SELECT 
     		role 
     	FROM tbUserRole
@@ -105,7 +105,7 @@
     		AND username = #{username}  		         
     </select>
 
-    <delete id="delete" parameterType="com.ewideplus.companyprofile.vo.UserVo">    	
+    <delete id="delete" parameterType="com.project.companyprofile.vo.UserVo">    	
     </delete>
     
 </mapper>

@@ -21,6 +21,6 @@
 		c:_1-ref="socialUsersDetailServiceImplementation" />
 	
 	<!-- Implementation detail for social authentication, including populating principal with user information -->	
-	<bean id="socialUsersDetailServiceImplementation" class="com.ewideplus.companyprofile.admin.service.implementation.SocialUserDetailsServiceImpl"/>
+	<bean id="socialUsersDetailServiceImplementation" class="com.project.companyprofile.admin.service.implementation.SocialUserDetailsServiceImpl"/>
 	
 </beans>
